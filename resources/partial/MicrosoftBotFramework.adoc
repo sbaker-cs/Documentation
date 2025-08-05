@@ -1,0 +1,116 @@
+= Microsoft Bot Framework
+:caption:
+
+https://app.pluralsight.com/library/courses/microsoft-bot-framework-building-bots-getting-started-2019/[Pluralsight Course]
+
+.Activity Type
+* Message
+* Contact Relation Update
+* Conversation Update
+* Delete User Data
+* End of Conversation
+* Event
+* Installation Update
+* Invoke
+* Message Reaction
+* Typing
+* Message Update
+* Message Delete
+* Suggestion
+* Trace
+* Handoff
+
+
+.https://learn.microsoft.com/en-us/dotnet/api/microsoft.bot.schema.activity?view=botbuilder-dotnet-stable[Activity object flow]
+[plantuml]
+....
+@startuml
+skinparam actorStyle awesome
+actor "Client" as c
+
+usecase "Value" as value
+usecase "Text" as text
+usecase "Conversation Account" as conversation
+usecase "Channel Data" as data
+usecase "Activity Type" as activity
+usecase "Channel Account" as account
+usecase "Recipient" as recipient
+usecase "From" as from
+
+c --> conversation
+c --> value
+value --> text
+c --> data
+c --> activity
+c --> account
+account --> recipient
+account --> from
+@enduml
+....
+
+.Dialog Types
+* Prompt
+** Text
+** Number
+** DateTime
+** Confirm
+** Choice
+** Attachment
+* Waterfall
+* Component
+* Adaptive
+* Actions
+* Input
+* Skill
+* Q&A Maker
+
+== LUIS
+
+Intents => Verbs +
+Entites => Nouns +
+Utterances => Sentences
+
+.Prebuilt intents
+* Calendar
+* Communication
+* Email
+* Home Automation
+* Notes
+* Places
+* Restaurant Reservation
+* Todo
+* Utilities
+* Weather
+* Web
+
+.Entities
+* Machine learned
+** Simple
+* Non-Machine learned
+** List
+** Regex
+
+* Composite
+* Pattern.Any
+* Prebuilt
+** Number
+** Ordinal
+** Temperature
+** Dimension
+** Money
+** Age
+** Person name
+** Percentage
+** Email
+** Url
+** Geography
+** Keyphrase
+
+https://github.com/microsoft/botframework-cli/tree/main/packages/luis#bf-luisgeneratecs[Generate C# class from Luis model]
+
+https://git.starbeamrainbowlabs.com/Demos/TextRecogniserDemo[DateTime parsing 3rd party demo reference]
+
+== Deploying through channels
+
+. Generate Copilot (GPT) using CopilotStudio
+. SlackApp

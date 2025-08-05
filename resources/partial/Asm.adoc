@@ -1,0 +1,161 @@
+= Assembly
+:toc:
+
+== Setup
+
+.KDBG
+[source, bash]
+----
+sudo apt install -y build-essential binutils-common cmake extra-cmake-modules qtcreator qtbase5-dev qt5-qmake libkf5iconthemes-dev libkf5xmlgui-dev gettext
+
+git clone -b maint https://github.com/j6t/kdbg.git
+cmake .
+sudo make install
+----
+
+.Build from C using VS dev prompt
+[source, bash]
+----
+cl /Z7 file.c
+editbin /DYNAMICBASE:NO file.exe
+----
+
+== Conditional
+
+[tabs]
+.If
+======
+C::
++
+[source, c]
+----
+if (a > b && a < c)
+{
+    a++;
+}
+else
+{
+    b++;
+}
+----
+
+ASM::
++
+[source, nasm]
+----
+mov     eax, [ebp-0x4]  ; 1st param on stack
+cmp     eax, [ebp-0x8]  ; 2nd param on stack
+jle     else            ; if a > b  invert the condition
+cmp     eax, [ebp-0xC]  ; 3rd param on stack
+jge     else            ; if a < c
+add     [ebp-0x4], 1
+jmp     end_if
+else:
+add     [ebp-0x8], 1
+end_if:
+----
+======
+
+[tabs]
+.For
+======
+C::
++
+[source, c]
+----
+for (int i = 0; i < 10; i++)
+{ /*loop body*/ }
+----
+
+ASM::
++
+[source, nasm]
+----
+mov     eax, [ebp-0x4]  ; set eax as loop var (from the stack?)
+loop_comp:
+cmp     eax, 9
+jg      end_loop        ; inverted condition
+add     eax, 1          ; increment index variable
+jmp     loop_comp
+end_loop:
+----
+======
+
+[tabs]
+.While
+======
+C::
++
+[source, c]
+----
+while (a < 10)
+{ /*loop body*/ }
+----
+
+ASM::
++
+[source, nasm]
+----
+mov     eax, [ebp-0x4]
+loop_comp:
+cmp     eax, 9
+jg      end_loop        ; inverted condition
+add     eax, 1          ; increment index variable
+jmp     loop_comp
+end_loop:
+----
+======
+
+[tabs]
+.Switch
+======
+C::
++
+[source, c]
+----
+----
+
+ASM::
++
+[source, nasm]
+----
+----
+======
+
+== Data Structure
+
+=== Array
+
+.Stack based
+[source, nasm]
+----
+.data
+    array1 dw 1, 2, 3, 4, 5, 6
+    ; ptrToMemoryLocation objectSize enumeratedData
+
+mov     eax, array1         ; set array address to eax
+mov     ebx, [array1]       ; get 1st element
+mov     ecx, [array1 + 0x4] ; get 3rd element
+----
+
+== LAB
+
+.Lab 5
+[source, c]
+----
+int a = 0;
+while (a <= 15)
+{
+    // eax = a;
+    // eax += 1;
+    // a = eax;
+    a++;
+}
+
+if (b > 100)
+    b = 100;
+else if (b > 50)
+    b = 50;
+else
+    b = 0;
+----

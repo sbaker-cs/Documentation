@@ -1,0 +1,141 @@
+= Git
+:toc:
+
+== Remove hooks
+
+.List global settings
+[source, bash]
+----
+git config --global -l
+----
+.Remove hook setting
+[source, bash]
+----
+git config --global --unset core.hookspath
+----
+
+== Ignore files localy
+
+ResxSorter is used as an exemple
+
+.Ignore changes applied to already existing file
+[source, bash]
+----
+git update-index --assume-unchanged {gitPath}\RDM\DevTools\ResxSorter\bin\Debug\ResxSorter.exe
+----
+
+.Add global .gitignore file
+[source, bash]
+----
+git config --global core.excludesfile E:\git\.gitignore
+----
+
+== Delete old branches
+
+.Safe delete
+[source, powershell]
+----
+git branch -vv | grep ': gone]' | foreach { git branch $_ -d }
+----
+
+.Hard delete
+[source, powershell]
+----
+git branch -vv | grep ': gone]' | foreach { git branch $_ -D }
+----
+
+== Retrieve lost stash
+
+.Get dangling hash
+[source, bash]
+----
+git fsck --no-reflog --dangling
+----
+
+.(Optional) Display stash content
+[source, bash]
+----
+git show <hash>
+----
+
+.Apply stash
+[source, bash]
+----
+git stash apply <hash>
+----
+
+.(Optional) Create branch from stash
+[source, bash]
+----
+git branch <name> <hash>
+----
+
+include::./Devolutions/Git.adoc[tag=Note, opts=optional]
+
+== Patch
+
+.Create Patch
+[source, bash]
+----
+# Staged only
+git diff --cached > staged.patch
+
+# Unstaged only
+git diff > unstaged.patch
+
+# Both
+git diff HEAD > full.patch
+----
+
+.Apply Patch
+[source, bash]
+----
+git apply full.patch
+----
+
+== Commit Signing
+
+. Add git gpg in path
+** `C:\Program Files\Git\usr\bin\`
+. `gpg --full-generate-key`
+** 1
+** 4096
+** 1y
+** Real Name
+** Github generated email under https://github.com/settings/emails[Github Email Settings - Primary email address]
+** Comment
+** Confirm
+. _(Optional)_ Set a passphrase
+** _Doing so will prompt you for passphrase before completing a commit_
+. `gpg --list-secret-keys --keyid-format=long`
+** Copy key ID `3AA5C34371567BD2` in this example
++
+[source]
+----
+sec   4096R/3AA5C34371567BD2 2016-03-10 [expires: 2017-03-10]
+uid                          Hubot <hubot@example.com>
+ssb   4096R/4BB6D45482678BE3 2016-03-10
+----
+. https://github.com/settings/keys[Add GPG key to Github account]
+** `gpg --armor --export 3AA5C34371567BD2`
+** Copy your GPG key, +
+Beginning with `-----BEGIN PGP PUBLIC KEY BLOCK-----` +
+Ending with `-----END PGP PUBLIC KEY BLOCK-----`.
+. `git config --global user.signingkey 3AA5C34371567BD2`
+. `git config --global commit.gpgsign true`
+. _(optional):_ Set "Flag unsigned commits as unverified" in https://github.com/settings/keys[Github Settings]
+
+include::./Devolutions/Git.gitkraken.adoc[tag=commit_signing, opts=optional]
+
+== Troubleshooting
+
+include::./Devolutions/Git.gitkraken.adoc[tag=troubleshooting, opts=optional]
+
+=== Github Desktop
+
+.Unable do find signing key
+You may also need to specify `gpg.exe` location
+[source, bash]
+----
+git config --global gpg.program C:\Program Files\Git\usr\bin\gpg.exe
+----

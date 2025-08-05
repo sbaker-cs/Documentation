@@ -1,0 +1,124 @@
+= Semgrep
+
+== Linux Setup
+
+. Install <<Homebrew Setup, Homebrew>>
+. `brew install semgrep`
+
+== Usage
+
+* Run rules on files +
+`semgrep -c rules.yml --lang=c#`
+
+.rules.yml
+[%collapsible]
+====
+[source, yaml]
+----
+rules:
+  - id: write-to-file
+    severity: WARNING
+    languages:
+      - csharp
+    message: >
+      Writes to file
+    patterns:
+      - pattern: |
+          $FD.write(...);
+----
+====
+
+* Run pattern on files +
+`semgrep -e $pattern --lang=c#`
+
+.$pattern
+[%collapsible]
+====
+[source]
+----
+$FD.write(...);
+----
+====
+
+.Exemple C# file
+[%collapsible]
+====
+[source, c#]
+----
+void test1()
+{
+    // ruleid:hardcoded-tmp-path
+    f = open("/tmp/blah.txt", 'w');
+    f.write("hello world");
+    f.close();
+}
+
+void test2()
+{
+    // ruleid:hardcoded-tmp-path
+    f = open("/tmp/blah/blahblah/blah.txt", 'r');
+    data = f.read();
+    f.close();
+}
+
+void test3()
+{
+    // ok:hardcoded-tmp-path
+    f = open("./tmp/blah.txt", 'w');
+    f.write("hello world");
+    f.close();
+}
+
+void test4()
+{
+    // ok:hardcoded-tmp-path
+    f = open("/var/log/something/else/tmp/blah.txt", 'w');
+    f.write("hello world");
+    f.close();
+}
+----
+====
+
+.Result
+[%collapsible]
+====
+[source]
+----
+test.cs
+  5┆ f.write("hello world");
+  ⋮┆----------------------------------------
+  21┆ f.write("hello world");
+  ⋮┆----------------------------------------
+  29┆ f.write("hello world");
+----
+====
+
+== CI
+
+.action.yml
+[%collapsible]
+====
+[source, yaml]
+----
+name: Semgrep
+
+on:
+  workflow_dispatch:
+
+jobs:
+  semgrep:
+    name: Scan
+    runs-on: ubuntu-latest
+    if: (github.actor != 'dependabot[bot]')
+    container:
+      image: returntocorp/semgrep
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - run: semgrep ci
+        env:
+          # using semgrep default rules and custom rule files from folder repo folder
+          SEMGREP_RULES: p/default .github/workflows/semgrep/
+----
+====

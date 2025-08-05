@@ -1,0 +1,47 @@
+= Windows
+
+== Non default settings
+
+.Context menu
+----
+reg add "HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32" /f /ve
+----
+
+.Taskbar hover grouping
+Settings/System/Multitasking/Show my snapped windows when I hover over taskbar apps [...]
+
+== Package Management
+
+=== Winget
+
+.Setup Winget
+[source, powershell]
+----
+Install-Module Microsoft.WinGet.Client
+Repair-WinGetPackageManager
+----
+
+=== Scoop
+
+.Setup
+[source, powershell]
+----
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
+
+scoop bucket known | foreach { scoop bucket add $_ }
+----
+
+.Remove unwanted buckets
+[source, powershell]
+----
+@("nirsoft", "php", "nerd-fonts", "java", "games") | foreach { scoop bucket remove $_ }
+----
+
+== Tips
+
+.Adding Symlink
+[source, powershell]
+----
+New-Item -ItemType SymbolicLink -Path E:\Data\Documents -Target "C:\users\sbaker\Documents"
+----

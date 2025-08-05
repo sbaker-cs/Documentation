@@ -1,0 +1,34 @@
+= Docker
+
+== Build
+
+[source, bash]
+----
+docker build -t image-name:tag .
+----
+
+== Compose
+
+.Healthcheck
+[source, yaml]
+----
+healthcheck:
+    test: ["CMD", "curl", "-f", "http://localhost:8000/healthz"]
+    interval: 30s
+    timeout: 10s
+    retries: 3
+----
+
+== Tip
+
+.Access container shell
+[source, bash]
+----
+docker exec -it containerName sh
+----
+
+.Get container OS
+[source, bash]
+----
+docker exec -i containerName cat /etc/os-release
+----

@@ -1,0 +1,92 @@
+[.doc]
+= Documentation
+:toc:
+:toclevels: 4
+:caption: 
+:partial: resources\partial\
+:gitPath: C:\git
+:hide-uri-scheme:
+:data-uri:
+:source-highlighter: rouge
+// Needed for source copy button and adjustable ToC
+:docinfo: shared
+
+:blueBadge: pass:[<span style="display: inline-block; padding: 0.25em 0.4em; font-size: 75%; font-weight: bold; line-height: 1; text-align: center; white-space: nowrap; vertical-align: baseline; border-radius: 0.25rem; color: #ffffff; background-color: #007bff;">]
+:redBadge: pass:[<span style="display: inline-block; padding: 0.25em 0.4em; font-size: 75%; font-weight: bold; line-height: 1; text-align: center; white-space: nowrap; vertical-align: baseline; border-radius: 0.25rem; color: #ffffff; background-color: #ff0000;">]
+:greenBadge: pass:[<span style="display: inline-block; padding: 0.25em 0.4em; font-size: 75%; font-weight: bold; line-height: 1; text-align: center; white-space: nowrap; vertical-align: baseline; border-radius: 0.25rem; color: #ffffff; background-color: #00aa00;">]
+:badgeEnd: pass:[</span>]
+
+<<<
+
+:leveloffset: +1
+
+include::{partial}/Devolutions/Documentation.adoc[opts=optional]
+
+:leveloffset: -1
+
+== Development
+:leveloffset: +2
+
+include::{partial}Powershell.adoc[]
+
+<<<
+
+include::{partial}GithubAction.adoc[]
+
+<<<
+
+include::{partial}Semgrep.adoc[]
+
+<<<
+
+include::{partial}Npm.adoc[]
+
+<<<
+
+include::{partial}MicrosoftBotFramework.adoc[]
+
+<<<
+
+include::{partial}Git.adoc[]
+
+<<<
+
+include::{partial}Linux.adoc[]
+
+<<<
+
+include::{partial}Windows.adoc[]
+
+<<<
+
+include::{partial}Docker.adoc[]
+
+<<<
+
+include::{partial}AI.adoc[]
+
+<<<
+
+include::{partial}Asm.adoc[]
+
+<<<
+
+include::{partial}Pentest.adoc[]
+
+<<<
+
+include::{partial}Misc.adoc[]
+
+<<<
+
+:leveloffset: -2
+
+== Annexe
+
+https://github.com/dragonmost/AsciiDoc-CheatSheet/blob/master/README.adoc#source[AsciiDoc CheatSheet]
+
+https://docs.asciidoctor.org/asciidoc/latest/syntax-quick-reference/[Asciidoc Official Syntax Quick Guide]
+
+https://quickchart.io/gallery/[Chart Generator]
+
+https://github.com/asciidoctor/asciidoctor-extensions-lab/issues/61[Add Copy button to code blocks]

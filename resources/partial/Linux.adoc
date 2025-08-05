@@ -1,0 +1,152 @@
+= Linux
+:toc:
+
+== Debian
+
+.Add user sudoer
+[source, bash]
+----
+su
+sudo usermod -aG sudo <username>
+su - <username>
+----
+
+== Kali
+
+.Install tools
+[source, bash]
+----
+wget http://http.kali.org/kali/pool/main/k/kali-archive-keyring/kali-archive-keyring_2022.1_all.deb
+sudo dpkg -i kali-archive-keyring_2022.1_all.deb
+sudo apt install kali-linux-default
+----
+
+== WSL
+
+https://learn.microsoft.com/en-us/windows/wsl/wsl-config[Advanced settings configuration in WSL]
+
+=== Win-Kex
+
+[source, bash]
+----
+sudo apt update
+sudo apt install kali-win-kex
+----
+
+=== Could not resolve host
+
+. Create file `/etc/wsl.conf`
++
+[source]
+----
+[network]
+generateResolvConf = false
+----
+. Reboot WSL `wsl --shutdown; wsl`
+. Create file `/etc/resolv.conf`
++
+[source]
+----
+nameserver 8.8.8.8
+----
+. Lock file `sudo chattr -f +i /etc/resolv.conf`
+
+note: to unlock the file use `sudo chattr -f -i /etc/resolv.conf`
+
+=== Hang on apt install/update
+
+[source, bash]
+----
+sudo mv /usr/sbin/telinit /usr/sbin/telinit.bak
+sudo ln -s /usr/bin/true /usr/sbin/telinit
+----
+
+=== Nothing to restart
+
+[source]
+.Add to /etc/wsl.conf
+----
+[boot]
+systemd = true
+----
+
+=== Install .Net SDK
+
+[source, bash]
+----
+wget https://dot.net/v1/dotnet-install.sh -O dotnet-install.sh
+sudo chmod +x ./dotnet-install.sh
+./dotnet-install.sh --version latest
+----
+
+https://gist.github.com/tdcosta100/385636cbae39fc8cd0937139e87b1c74
+
+https://www.kali.org/docs/wsl/win-kex-sl/
+
+https://github.com/TheFern2/windows-terminal-icons
+
+== SSH
+
+=== Server Setup
+
+[source, bash]
+----
+sudo apt install openssh-server
+nano /etc/ssh/ssh_config
+# uncomment Password Authentication yes
+
+sudo systemctl restart ssh
+
+# double check service status
+systemctl status ssh
+----
+
+=== Client Setup
+
+.Linux and Powershell clients
+[source, bash]
+----
+ssh username@hotname
+----
+
+== Docker
+
+=== Install
+
+.Setup repository
+[source, bash]
+----
+# Add Docker's official GPG key:
+sudo apt-get update
+sudo apt-get install ca-certificates curl gnupg
+sudo install -m 0755 -d /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+sudo chmod a+r /etc/apt/keyrings/docker.gpg
+
+# Add the repository to Apt sources:
+echo \
+  "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+
+# Test working setup
+sudo docker run hello-world
+----
+
+== Homebrew
+
+https://brew.sh/[Official Documentation]
+
+.Requirements
+[source, bash]
+----
+sudo apt-get install build-essential procps curl file git
+----
+
+.Installation
+[source, bash]
+----
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+brew doctor
+----

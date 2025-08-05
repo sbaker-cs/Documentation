@@ -1,0 +1,27 @@
+= Misc
+
+== OpenSearch
+
+.docker-compose.yml
+[source, yaml]
+----
+services:
+    opensearch:
+        image: 'opensearchproject/opensearch:latest'
+        container_name: opensearch-node
+        environment:
+            - discovery.type=single-node
+            - OPENSEARCH_INITIAL_ADMIN_PASSWORD=__PASSWORD__
+        ports:
+            - '9600:9600'
+            - '9200:9200'
+        tty: true
+        stdin_open: true
+        restart: unless-stopped
+----
+
+.Get user permissions
+[source, bash]
+----
+curl -X GET "https://localhost:9200/_plugins/_security/api/permissionsinfo" -ku user:pass
+----

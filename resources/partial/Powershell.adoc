@@ -1,0 +1,52 @@
+= Powershell
+:toc:
+
+== Module
+
+=== Creating Module
+
+Placeholder
+
+=== Publishing Module
+
+.Register Local Repository
+[source, powershell]
+----
+Register-PSRepository -Name $repo_name -SourceLocation $repo_destination
+----
+
+[source, powershell]
+----
+Publish-Module -Repository $repo_name -Path $psd1_directory_path
+----
+
+=== Installing Module
+
+[source, powershell]
+----
+Install-Module -Name $module_name -Repository $default_PSGallery
+----
+
+[discrete]
+== Pester
+[source, powershell]
+----
+Invoke-Pester -Output Detailed $pester_file_path
+----
+
+====
+[source, powershell]
+----
+Test-ModuleManifest: The specified RequiredModules entry 'moduleName' in the module manifest
+'file.psd1' is invalid. Try again after updating this
+entry with valid values.
+----
+
+Possible issue: Dependant module must be installed even if already on repo
+====
+
+TODO: cmdlet
+[source, powershell]
+----
+Get-ChildItem -Recurse -Path $p -Filter "*HWMon*" -name -File -Exclude "uninstall*"
+----

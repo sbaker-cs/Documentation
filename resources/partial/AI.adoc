@@ -1,0 +1,18 @@
+= AI
+
+== ChatGPT
+
+== Claude
+:experimental:
+
+.Key combos
+|===
+| kbd:[Shift + Tab] | Auto-accept edits
+| kbd:[#] | Create memory
+| kbd:[!] | Enter bash mode
+| kbd:[@] | Add file/folder to context
+| kbd:[Esc] | Cancel
+| kbd:[Esc + Esc] a| Jump back in history `--resume`
+| kbd:[Ctrl + R] | Verbose output
+| kbd:[/Vibe] |
+|===

@@ -1,0 +1,210 @@
+= Github Actions
+:toc:
+:caption:
+
+== Learning Github Actions
+
+https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#filter-pattern-cheat-sheet[Filter pattern CheatSheet]
+
+[discrete]
+=== Uses
+
+.Repository Action
+[source, yaml]
+----
+uses: ./.github/workflows/action/
+----
+
+.Public Repository Action
+[source, yaml]
+----
+uses: /user/repo@master
+uses: /user/repo/actionPath@master
+----
+
+.Docker Action
+[source, yaml]
+----
+uses: 'docker://host/image:tag'
+----
+
+=== Service Containers
+
+[IMPORTANT]
+====
+Service Containers must run under linux
+====
+
+[source, yaml]
+----
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+      volumes:
+        - /source/directory:/destination/directory
+      options: >-
+        --health-cmd pg_isready
+        --heatth-intervat 10s
+        --health-timeout 5s
+        --health-retries 5
+----
+
+=== Composite Action
+
+[source, yaml]
+----
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: owner/repo@master
+        with:
+          variable: value
+----
+
+=== Scheduled Triggers
+
+==== Cron Job Syntax
+
+[IMPORTANT]
+====
+Cron jobs run on UTC
+====
+
+[source]
+----
+- cron: '* * * * *'
+----
+
+. minutes (0-59)
+. hour (0-23)
+. day of the month (1-31)
+. month (1-12 / JAN-DEC)
+. day of the week (0-6 / SUN/SAT)
+
+=== Dependency caching
+
+[source, yaml]
+----
+- uses: actions/cache@v3
+  with:
+    path: ~/.nuget/packages
+    key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+    restore-keys: |
+      ${{ runner.os }}-nuget-
+----
+
+== Create new Action
+
+.Compile action using https://docs.github.com/en/actions/creating-actions/creating-a-javascript-action#commit-tag-and-push-your-action-to-github[ncc]
+[source, bash]
+----
+npm i -g @vercel/ncc
+ncc build index.js
+rm -rf node_modules/*
+----
+
+== Matrix
+
+[source, yaml]
+.LinkedInLearning
+----
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      max-parallel: 3 # auto managed, max 256
+      matrix:
+        version: [14, 16, 17]
+        platform: [ubuntu-latest, macos-latest, windows-latest]
+        experimental: [false]
+        # add version 18 only for the ubuntu job
+        include:
+          - platform: ubuntu-latest
+            version: 18
+            exprimental: true
+        # remove version 14 only for the windows job
+        exclude:
+          - platform: windows-latest
+            version: 14
+      continue-on-error: ${{ matrix.experimental }}
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.version }}
+----
+
+[source, yaml]
+.Other
+----
+jobs:
+  job-setup:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+      environment: ${{ steps.set-environment.outputs.environment }}
+      signskip: ${{ steps.set-signing.outputs.signskip }}
+    steps:
+      - id: set-matrix
+        run: |
+          matrix='{ "include": [{
+                    "productName": "MyApp",
+                    "productVersion": "1.0.0",
+                    }]}'
+
+          echo "::set-output name=matrix::$(echo $matrix)"
+----
+
+== Publishing Packages
+
+[caption=""]
+.Build and Publish
+|===
+| JS | npm ci; npm publish
+| Ruby | gem build; gem push
+| Java | mvn package; mvn deploy
+| .Net | dotnet pack; dotnet nuget push
+|===
+
+include::./Devolutions//GithubAction.adoc[tag=SBOMGeneration, opts=optional]
+
+== Writing to environment variables
+
+.Bash
+[source, bash]
+----
+echo "::set-output name=envName::$(echo $varValue)"
+----
+
+.Powershell
+[source, pwsh]
+----
+echo "envName=$varValue" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append
+----
+
+=== Using cdxgen
+:broken: {redBadge}Broken{badgeEnd}
+
+`TODO:`
+
+include::./Devolutions/GithubAction.adoc[tag=SBOMAnalysis, opts=optional]
+
+== Local Runner Setup
+
+. Install Ubuntu
+. Install Homebrew
+.. `apt install git`
+.. `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
+.. `eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"`
+.. `brew doctor`
+. Install Nektos/Act
+.. `Brew install act`
+.. `act --version`

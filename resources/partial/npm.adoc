@@ -1,0 +1,7 @@
+= NPM
+
+.Disable fund message
+[source, bash]
+----
+npm config set fund false --global
+----
