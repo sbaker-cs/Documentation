@@ -109,6 +109,151 @@ systemctl status ssh
 ssh username@hotname
 ----
 
+== Tools
+
+=== Printf
+
+.Variables
+[%header, caption=]
+|===
+| Variable | Value
+| %d | Integers
+| %f | Floating-point
+| %c | Characters
+| %s | Strings
+| %% | Prints '%' literal
+|===
+
+[NOTE]
+%2d 2 digits
+
+=== AWK
+
+.Variables
+[%header, caption=]
+|===
+| Variable | Value
+| $0 | Complete row
+| $1 | Field 1
+| $n | Field n
+| NR | Row number
+| NF | Number of fields
+| FS | Field seperator
+|===
+
+[%collapsible]
+.Examples
+====
+[source, bash]
+----
+awk 'BEGIN {FS=":"; printf "%4s%20s%6s\n", "Num:", "Username", "UID"; COUNT=0} \
+/bash$/{COUNT++; printf "%2d%s%20s%6d\n", COUNT, ": ", $1, $3} \
+END {printf COUNT " total\r\n"}' /etc/passwd
+:'
+Num:            Username   UID
+ 1:                 root     0
+ 2:                baker  1000
+ 2 total
+'
+----
+[source, awk]
+----
+!(/Never logged in/ || /^Username/ || /^root/) {
+  COUNT++;
+  if (NF == 8)
+    printf "%8s %2s %3s %4s\n", $1,$5,$4,$8;
+  else
+    printf "%8s %2s %3s %4s\n", $1,$6,$5,$9;
+} END {
+  print "==============";
+  print "Total Number of Users Processed: ", COUNT;
+}
+----
+====
+
+=== SED
+
+[%header, caption=, cols="a,"]
+.https://www.gnu.org/software/sed/manual/sed.html#sed-scripts[Commands]
+|===
+| Command | Definition
+| `a text` `a\ text` | Append _text_ after a line.
+| `b label` |  Branch unconditionally to _label_. The _label_ may be omitted, in which case the next cycle is started.
+| `c text` `c\ text` | Replace (change) lines with text.
+| `d` | Delete the pattern space; immediately start next cycle. 
+| `D` |     If pattern space contains newlines, delete text in the pattern space up to the first newline, and restart cycle with the resultant pattern space, without reading a new line of input.
+
+If pattern space contains no newline, start a normal new cycle as if the d command was issued.
+| `e` |  Executes the command that is found in pattern space and replaces the pattern space with the output; a trailing newline is suppressed.
+| `e command` | Executes command and sends its output to the output stream. The command can run across multiple lines, all but the last ending with a back-slash.
+| `F` | (filename) Print the file name of the current input file (with a trailing newline). 
+| `g` | Replace the contents of the pattern space with the contents of the hold space. 
+| `G` | Append a newline to the contents of the pattern space, and then append the contents of the hold space to that of the pattern space. 
+| `h` | (hold) Replace the contents of the hold space with the contents of the pattern space. 
+| `H` | Append a newline to the contents of the hold space, and then append the contents of the pattern space to that of the hold space. 
+| `i text` `i\ text` | 
+| `l` | Print the pattern space in an unambiguous form. 
+| `n` | (next) If auto-print is not disabled, print the pattern space, then, regardless, replace the pattern space with the next line of input. If there is no more input then sed exits without processing any more commands. 
+| `N` | Add a newline to the pattern space, then append the next line of input to the pattern space. If there is no more input then sed exits without processing any more commands. 
+| `p` | Print the pattern space. 
+| `P` | Print the pattern space, up to the first <newline>. 
+| `q[exit-code]` | (quit) Exit sed without processing any more commands or input. 
+| `Q[exit-code]` | (quit) This command is the same as q, but will not print the contents of pattern space. Like q, it provides the ability to return an exit code to the caller. 
+| `r filename` | Reads file filename. 
+| `R filename` | Queue a line of filename to be read and inserted into the output stream at the end of the current cycle, or when the next input line is read. 
+| `s/regex/replacement/[flags]` | (substitute) Match the regular-expression against the content of the pattern space. If found, replace matched string with replacement. 
+| `t label` | (test) Branch to label only if there has been a *successful* substitution since the last input line was read or conditional branch was taken. The label may be omitted, in which case the next cycle is started. 
+| `T label` | (test) Branch to label only if there have been *no successful* substitutions since the last input line was read or conditional branch was taken. The label may be omitted, in which case the next cycle is started. 
+| `v [version]` | (version) This command does nothing, but makes sed fail if GNU sed extensions are not supported, or if the requested version is not available. 
+| `w filename` | Write the pattern space to filename. 
+| `W filename` | Write to the given filename the portion of the pattern space up to the first newline 
+| `x` | Exchange the contents of the hold and pattern spaces. 
+| `y/src/dst` | Transliterate any characters in the pattern space which match any of the source-chars with the corresponding character in dest-chars. 
+| `z` | (zap) This command empties the content of pattern space. 
+| `#` | A comment, until the next newline. 
+| `{}` | Group several commands together. 
+| `=` | Print the current input line number (with a trailing newline). 
+| `: label` | Specify the location of label for branch commands (b, t, T). 
+|===
+
+[%collapsible]
+.Examples
+====
+[source, bash]
+----
+#!/bin/bash
+for f in ~/*.sh; do
+  firstline=$(sed -n '1p' $f)
+  if [[ $firstline != "#!"* ]]; then
+    echo "Adding #! to $f"
+    sed -i '1i #!/bin/bash' $f
+  fi
+done
+----
+
+[source, bash]
+----
+#!/bin/sed -Ef
+/ClientAliveInterval/ {
+  s/^(ClientAliveInterval).*$/\1 60/
+  t count
+  s/.*/ClientAliveInterval 60/
+  t count
+}
+
+:count
+/ClientAliveCountMax/ {
+  s/^(ClientAliveCountMax).*$/\1 3/
+  t del
+  s/.*/ClientAliveCountMax 3/
+  t del
+}
+
+:del
+/^(#|$)/d
+----
+====
+
 == Docker
 
 === Install
