@@ -279,6 +279,13 @@ sudo apt-get update
 sudo docker run hello-world
 ----
 
+=== Execution
+
+[source, bash]
+----
+sudo docker exec -it container_name bash
+----
+
 == Homebrew
 
 https://brew.sh/[Official Documentation]
