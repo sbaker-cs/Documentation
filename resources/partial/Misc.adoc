@@ -1,5 +1,60 @@
 = Misc
 
+== REGEX
+
+[caption=""]
+.Anchor
+|===
+| `^` | Beginning of line
+| `$` | End of line
+|===
+
+[caption=""]
+.Character classes
+|===
+| `\w` `\W` | Any single word/non-word char
+| `\d` `\D` | Any single digit/non-digit char
+| `\s` `\S` | Any single whitespace/non-whitespace char
+|===
+
+[caption=""]
+.Values
+|===
+| `.` | Match on single char
+| `"text"` | Match on litteral string
+| `[abc]` | Match on at least 1 specified char
+| `[^abc]` | Match on except any of these specified char
+| `[a-z]` | Match on any in range
+|===
+
+[caption=""]
+.Quantifiers
+|===
+| `{n}` | Match exactly N times
+| `{n, }` | Match at least N times
+| `{n, m}` | Match atleast N but max M times
+| `*` | Match 0 or more
+| `+` | Match 1 or more
+| `?` | Match 0 or 1
+|===
+
+[caption=""]
+.Examples
+====
+.IPv4
+----
+^((25[0-5]|2[0-4][0-9]|[01]?[0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$
+----
+.Email address
+----
+\S+@\w+\.((net)|(com)|(org)|(edu)|(gov))
+----
+.UNC
+----
+\\\\\S+\\\w+
+----
+====
+
 == OpenSearch
 
 .docker-compose.yml
