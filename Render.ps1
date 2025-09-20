@@ -56,7 +56,7 @@ if ($f -or $docDirty) {
     }, {
         if ($using:pdf) {
             Write-Host "Rendering Documentation PDF"
-            asciidoctor-pdf $using:doc\Documentation.adoc -o .\Render\Documentation.pdf -b pdf -r asciidoctor-kroki -a allow-uri-read -q
+            asciidoctor-pdf $using:docPath\Documentation.adoc -o .\Render\Documentation.pdf -b pdf -r asciidoctor-kroki -a allow-uri-read -q
             if ($using:o) {
                 . "$using:docPath\Render\Documentation.pdf"
             }
