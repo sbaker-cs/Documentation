@@ -1,0 +1,85 @@
+= OSINT
+
+https://www.youtube.com/watch?v=qwA6MmbeGNo[The Cyber Mentor - Open-source intelligence (osint) in 5 hours - Full course - Learn osint] +
+https://github.com/TCM-Course-Resources/Open-Source-Intellingence-Resources[Github - Open-Source-Intellingence-Resources]
+
+== Email search
+
+* https://hunter.io/[Hunter.io]
+* https://phonebook.cz/[Phonebook.cz]
+* https://www.voilanorbert.com/[VoilaNorbert]
+* https://tools.verifyemailaddress.io/[Email Hippo]
+* https://email-checker.net/validate[Email Checker]
+* https://chrome.google.com/webstore/detail/clearbit-connect-supercha/pmnhcgfcafcnkbengdcanjablaabjplo?hl=en[Clearbit Connect (Chrome Extension)]
+
+== Password OSINT 
+
+* https://dehashed.com/[Dehashed]
+* https://weleakinfo.to/v2/[WeLeakInfo]
+* https://leakcheck.io/[LeakCheck]
+* https://snusbase.com/[SnusBase]
+* https://scylla.sh/[Scylla.sh]
+* https://haveibeenpwned.com/[HaveIBeenPwned]
+
+== Username OSINT
+
+* https://namechk.com/[NameChk]
+* https://whatsmyname.app/[WhatsMyName]
+* https://namecheckup.com/[NameCheckup]
+
+== Social Media OSINT
+
+* https://twitter.com/search-advanced[Twitter Advanced Search]
+* https://socialbearing.com/[Social Bearing]
+* https://www.twitonomy.com/[Twitonomy]
+* http://sleepingtime.org/[Sleeping Time]
+* https://mentionmapp.com/[Mentionmapp]
+* https://tweetbeaver.com/[Tweetbeaver]
+* http://spoonbill.io/[Spoonbill.io]
+* https://tinfoleak.com/[Tinfoleak]
+* https://tweetdeck.com/[TweetDeck]
+* https://sowdust.github.io/fb-search/[Sowdust Github]
+* https://intelx.io/tools?tab=facebook[IntelligenceX Facebook Search]
+* https://wopita.com/[Wopita]
+* https://codeofaninja.com/tools/find-instagram-user-id/[Code of a Ninja]
+* https://www.instadp.com/[InstaDP]
+* https://imginn.com/[ImgInn]
+* https://map.snapchat.com[Snapchat Maps]
+
+== Website OSINT
+
+* https://builtwith.com/[BuiltWith]
+* https://centralops.net/co/[Domain Dossier]
+* https://dnslytics.com/reverse-ip[DNSlytics]
+* https://spyonweb.com/[SpyOnWeb]
+* https://www.virustotal.com/[Virus Total]
+* https://visualping.io/[Visual Ping]
+* http://backlinkwatch.com/index.php[Back Link Watch]
+* https://viewdns.info/[View DNS]
+* https://pentest-tools.com/information-gathering/find-subdomains-of-domain[Pentest-Tools Subdomain Finder]
+* https://spyse.com/[Spyse]
+* https://crt.sh/[crt.sh]
+* https://shodan.io[Shodan]
+* https://web.archive.org/[Wayback Machine]
+
+== Business OSINT
+
+* https://opencorporates.com/[Open Corporates]
+* https://www.aihitdata.com/[AI HIT]
+
+== Working with OSINT Tools
+
+* https://github.com/hmaverickadams/breach-parse/[breach-parse]
+* https://github.com/projectdiscovery/subfinder/[Subfinder]
+* https://github.com/tomnomnom/assetfinder/[Assetfinder]
+* https://github.com/tomnomnom/httprobe/[httprobe]
+* https://github.com/OWASP/Amass/[Amass]
+* https://github.com/sensepost/gowitness/wiki/Installation/[GoWitness]
+
+== Additional Resources
+
+* https://www.tracelabs.org/[TraceLabs]
+* https://www.innocentlivesfoundation.org/[Innocent Lives Foundation]
+* https://twitter.com/AletheDenis[Alethe Denis]
+* https://twitter.com/C_3PJoe[Joe Gray]
+* https://inteltechniques.com/[IntelTechniques]
