@@ -1,11 +1,13 @@
 = AI
+:toc:
 
-== ChatGPT
+== OpenAI
 
-== Claude
+== Anthropic
 :experimental:
 
-.Key combos
+[caption=""]
+.Claude Key combos
 |===
 | kbd:[Shift + Tab] | Auto-accept edits
 | kbd:[#] | Create memory
@@ -16,3 +18,7 @@
 | kbd:[Ctrl + R] | Verbose output
 | kbd:[/Vibe] |
 |===
+
+== Semantic Kernel
+
+https://devblogs.microsoft.com/semantic-kernel/using-json-schema-for-structured-output-in-net-for-openai-models/[[Blog\] Json Schema output]
