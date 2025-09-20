@@ -75,6 +75,10 @@ include::{partial}Pentest.adoc[]
 
 <<<
 
+include::{partial}LFS.adoc[]
+
+<<<
+
 include::{partial}Misc.adoc[]
 
 <<<
@@ -90,3 +94,9 @@ https://docs.asciidoctor.org/asciidoc/latest/syntax-quick-reference/[Asciidoc Of
 https://quickchart.io/gallery/[Chart Generator]
 
 https://github.com/asciidoctor/asciidoctor-extensions-lab/issues/61[Add Copy button to code blocks]
+
+<<<
+
+:leveloffset: +2
+include::{partial}osint.adoc[]
+:leveloffset: -2
