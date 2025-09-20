@@ -89,6 +89,10 @@ include::{partial}Pentest.adoc[]
 
 <<<
 
+include::{partial}LFS.adoc[]
+
+<<<
+
 include::{partial}Misc.adoc[]
 
 <<<
