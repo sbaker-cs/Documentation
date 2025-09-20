@@ -1,0 +1,106 @@
+= Linux From Scratch
+:toc:
+
+Notes creating my first Linux system using 
+https://www.linuxfromscratch.org/lfs/view/stable-systemd/index.html[LFS book]
+
+== Chapter 2 Preparing the Host System
+
+=== 2.4 Creating a New Partition
+
+.Using cfdisk
+|===
+| Swap | /dev/sda3 | 16 GB
+| LFS partition | /dev/sda4 | 100 GB 
+|===
+
+No GRUB BIOS Partition
+
+=== 2.5 Creating a File System on the Partition
+
+.Formatting partitions
+[source, bash]
+----
+mkfs -v -t ext4 /dev/sda4
+mkswap /dev/sda3
+----
+
+=== 2.6. Setting the $LFS Variable and the Umask 
+
+IMPORTANT: Always double check environment variable on reboot 
+
+.Root Environment Variable
+[source, bash]
+----
+export LFS=/mnt/lfs
+umask 022
+----
+
+=== 2.7 Mounting the New Partition
+
+[source, bash]
+----
+mkdir -pv $LFS
+mount -v -t ext4 /dev/sda4 $LFS
+chown root:root $LFS
+chmod 755 $LFS
+/sbin/swapon -v /dev/sda3
+----
+
+== Chapter 3 Packages and Patches
+
+.Download packages
+[source, bash]
+----
+# Setting up directory
+mkdir -v $LFS/sources
+chmod -v a+wt $LFS/sources
+cd $LFS/sources
+
+# Download, extract and clean up
+wget --user-agent="Mozilla/5.0" https://mirror.download.it/lfs/pub/lfs/lfs-packages/lfs-packages-12.3.tar
+tar -xvf lfs-packages-12.3.tar
+cp ./12.3/* ./
+rm -R 12.3/
+
+# Adding nano
+wget https://www.nano-editor.org/dist/v8/nano-8.4.tar.gz
+----
+
+== Chapter 4 Final Preparations
+
+=== 4.2 Creating a Limited Directory Layout in the LFS Filesystem
+
+.Create directory hierarchy
+[source, bash]
+----
+mkdir -pv $LFS/{etc,var} $LFS/usr/{bin,lib,sbin}
+
+for i in bin lib sbin; do
+  ln -sv usr/$i $LFS/$i
+done
+
+case $(uname -m) in
+  x86_64) mkdir -pv $LFS/lib64 ;;
+esac
+
+mkdir -pv $LFS/tools
+----
+
+IMPORTANT: Make sure `/usr/lib64` is never created
+
+=== 4.3 Adding the LFS User
+
+[source, bash]
+----
+groupadd lfs
+useradd -s /bin/bash -g lfs -m -k /dev/null lfs
+----
+
+[NOTE]
+====
+* `-s /bin/bash` Make _bash_ default shell 
+* `-g lfs` Add user to group _lfs_
+*`-m` Create home directory
+* `-k /dev/null` Prevent copying of skeleton directory `/etc/skel`
+====
