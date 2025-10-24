@@ -1,9 +1,13 @@
 = AI
 :toc:
 
-== OpenAI
+== Semantic Kernel
 
-== Anthropic
+https://devblogs.microsoft.com/semantic-kernel/using-json-schema-for-structured-output-in-net-for-openai-models/[[Blog\] Json Schema output]
+
+== Tooling
+
+=== Claude CLI
 :experimental:
 
 [caption=""]
@@ -18,7 +22,3 @@
 | kbd:[Ctrl + R] | Verbose output
 | kbd:[/Vibe] |
 |===
-
-== Semantic Kernel
-
-https://devblogs.microsoft.com/semantic-kernel/using-json-schema-for-structured-output-in-net-for-openai-models/[[Blog\] Json Schema output]
