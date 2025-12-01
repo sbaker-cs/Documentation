@@ -1,6 +1,13 @@
 = Git
 :toc:
 
+== Worktrees
+
+[souce, bash]
+----
+git worktree add ../branch_name -b branch_name
+----
+
 == Remove hooks
 
 .List global settings
