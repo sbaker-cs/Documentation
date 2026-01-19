@@ -79,11 +79,18 @@ sudo chmod +x ./dotnet-install.sh
 ./dotnet-install.sh --version latest
 ----
 
-https://gist.github.com/tdcosta100/385636cbae39fc8cd0937139e87b1c74
+=== Shrink unused space
 
-https://www.kali.org/docs/wsl/win-kex-sl/
+[source, bash]
+----
+optimize-vhd "~\AppData\Local\Packages\<distro>\LocalState\ext4.vhdx" -Mode full
+----
 
-https://github.com/TheFern2/windows-terminal-icons
+[NOTE]
+====
+Distro name is not based on WSL's name +
+eg: `CanonicalGroupLimited.Ubuntu_79rhkp1fndgsc`
+====
 
 == SSH
 
@@ -311,3 +318,9 @@ brew doctor
 cat -v
 ^[[3;5~
 ----
+
+https://gist.github.com/tdcosta100/385636cbae39fc8cd0937139e87b1c74
+
+https://www.kali.org/docs/wsl/win-kex-sl/
+
+https://github.com/TheFern2/windows-terminal-icons
