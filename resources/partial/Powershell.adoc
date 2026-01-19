@@ -50,3 +50,9 @@ TODO: cmdlet
 ----
 Get-ChildItem -Recurse -Path $p -Filter "*HWMon*" -name -File -Exclude "uninstall*"
 ----
+
+== Universal
+
+https://github.com/ironmansoftware/gallery[examples]
+
+https://docs.powershelluniversal.com/apps/custom-variable-scopes[scopes]
