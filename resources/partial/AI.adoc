@@ -22,3 +22,67 @@ https://devblogs.microsoft.com/semantic-kernel/using-json-schema-for-structured-
 | kbd:[Ctrl + R] | Verbose output
 | kbd:[/Vibe] |
 |===
+
+|===
+5+^.^| Thinking levels
+| Think | Think more | Think a lot | Think longer | Ultrathink
+|===
+
+=== Claude Hook Development
+
+.Debug
+[source, json]
+----
+"PostToolUse": [ // Or "PreToolUse" or "Stop", etc
+  {
+    "matcher": "*",
+    "hooks": [
+      {
+        "type": "command",
+        "command": "jq . > post-log.json"
+      }
+    ]
+  },
+]
+----
+
+==== Claude Code SDK
+
+[source, bash]
+.CLI
+----
+claude -p "Look for duplicate queries"
+----
+
+[source, ts]
+.Typescript
+----
+import { query, SDKMessage } from "@anthropic-ai/claude-code"
+
+const prompt = "Look for duplicate queries"
+
+for await (const message of query({
+    prompt,
+    options: {
+        allowedTools: ["Edit"]
+    }
+})) {
+    console.log(message)
+}
+----
+
+[source, python]
+.Python
+----
+import anyio
+from claude_code_sdk import ClaudeSDKClient, ClaudeAgentOptions
+
+options = ClaudeAgentOptions(allowed_tools=["Edit"])
+
+async def main():
+    prompt = "Look for duplciate queries"
+    async with ClaudeSDKClient(options=options) as client:
+        await client.query(prompt=prompt)
+        async for msg in client.receive_response():
+            print(msg)
+----
