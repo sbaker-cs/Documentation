@@ -174,7 +174,7 @@ jobs:
 | .Net | dotnet pack; dotnet nuget push
 |===
 
-include::./Devolutions//GithubAction.adoc[tag=SBOMGeneration, opts=optional]
+include::./Devolutions/GithubAction.adoc[tag=SBOMGeneration, opts=optional]
 
 == Writing to environment variables
 

@@ -31,6 +31,14 @@ include::{partial}Powershell.adoc[]
 
 <<<
 
+include::{partial}Git.adoc[]
+
+<<<
+
+include::{partial}Github.adoc[]
+
+<<<
+
 include::{partial}GithubAction.adoc[]
 
 <<<
@@ -44,10 +52,6 @@ include::{partial}Npm.adoc[]
 <<<
 
 include::{partial}MicrosoftBotFramework.adoc[]
-
-<<<
-
-include::{partial}Git.adoc[]
 
 <<<
 

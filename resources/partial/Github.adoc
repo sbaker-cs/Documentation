@@ -1,0 +1,20 @@
+= Github
+:toc:
+:caption:
+
+== CLI
+
+=== Actions
+
+.Retrieve workflow results
+[source, bash]
+----
+# Retrieve workflow IDs
+gh workflow list
+
+# Retrieve workflow run ID
+gh run list -w {workflow_id}
+
+# Retrieve workflow run summary
+gh run view {run_id}
+----
