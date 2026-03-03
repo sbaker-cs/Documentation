@@ -30,11 +30,16 @@ function IsDirty {
 }
 
 $docPath = $PSScriptRoot
-$currentPath = Get-Location
-Set-Location $docPath
+Push-Location $docPath
 
 $docDirty = IsDirty $docPath\Documentation.adoc $docPath\Render\Documentation.html
 Get-ChildItem -R $docPath\resources\partial | ForEach-Object {
+    if (IsDirty $_ $docPath\Render\Documentation.html)
+    {
+        $docDirty = $true
+    }
+}
+Get-ChildItem -R $docPath\resources\partial\Devolutions | ForEach-Object {
     if (IsDirty $_ $docPath\Render\Documentation.html)
     {
         $docDirty = $true
@@ -69,6 +74,6 @@ $commands | ForEach-Object {
     } | Out-String)
 } | Receive-Job -Wait -AutoRemoveJob
 
-Set-Location $currentPath
+Pop-Location
 
 [System.Media.SystemSounds]::Hand.Play()
