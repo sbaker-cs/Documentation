@@ -1,9 +1,109 @@
 = AI
 :toc:
+:caption: 
 
 == Semantic Kernel
 
 https://devblogs.microsoft.com/semantic-kernel/using-json-schema-for-structured-output-in-net-for-openai-models/[[Blog\] Json Schema output]
+
+== Claude
+
+[cols="1,2,2,2,2", options="header"]
+|===
+| | CLAUDE.md | Skills | Subagents | Hooks
+
+| *Scope*
+| All conversations (project-wide)
+| Current conversation
+| Separate execution context
+| Event-driven, per tool call
+
+| *Activation*
+| Always active
+| Request-driven (based on what you ask)
+| Explicitly delegated
+| Fires on events (e.g. file save, tool call)
+
+| *Context*
+| Sets permanent standards and constraints
+| Adds knowledge/instructions to current conversation
+| Isolated from main conversation; returns results
+| Runs side-effect commands outside conversation
+
+| *Use for*
+| Project-wide standards; coding style; permanent constraints
+| Task-specific expertise; detailed procedures; knowledge only sometimes relevant
+| Delegating tasks needing different tools or isolation
+| Linting on save; validation before tool calls; automated side effects
+
+| *Example*
+| "Never modify the database schema"
+| Activate a "code-review" skill when reviewing a PR
+| Run a build validator in a separate worktree
+| Run a linter every time Claude writes a file
+|===
+
+=== Skills
+
+.Pros and Cons of different Claude features
+|===
+| | Feature | Skills
+| Claude.md 
+a| 
+  * Project-wide standards that always apply
+  * Constraints like "never modify the database schema"
+  * Framework preferences and coding style 
+a| 
+  * Task-specific expertise
+  * Knowledge that's only relevant sometimes
+  * Detailed procedures that would clutter every conversation
+
+| SubAgents 
+a| 
+  * You want to delegate a task to a separate execution context
+  * You need different tool access than the main conversation
+  * You want isolation between delegated work and your main context
+a|
+  * You want to enhance Claude's knowledge for the current task
+  * The expertise applies throughout a conversation
+
+| Hooks 
+a| 
+  * Operations that should run on every file save
+  * Validation before specific tool calls
+  * Automated side effects of Claude's actions
+a|
+  * Knowledge that informs how Claude handles requests
+  * Guidelines that affect Claude's reasoning
+|===
+
+.Format
+[source, yaml]
+-----
+----
+name: skill-name
+description: What does it do, when is it used.
+allowed-tools: Bash, Glob, Grep, LS, exit_plan_mode, Read, Edit, MultiEdit, Write, WebFetch, WebSearch, TodoRead, TodoWrite, AskUserQuestion, Skill, SlashCommand, KillShell
+model: sonnet
+----
+
+# Skill Name
+
+## Instructions
+This is markdown instructions for my skill
+
+Use assets, references and scripts directories for extra data
+
+- scripts/ — Executable code
+- references/ — Additional documentation
+- assets/ — Images, templates, or other data files
+
+Scripts run off context
+
+## Examples
+Concrete examples
+-----
+https://gist.github.com/wong2/e0f34aac66caf890a332f7b6f9e2ba8f#file-claude-code-tools-md[Tool list gist]
 
 == Tooling
 
@@ -20,7 +120,7 @@ https://devblogs.microsoft.com/semantic-kernel/using-json-schema-for-structured-
 | kbd:[Esc] | Cancel
 | kbd:[Esc + Esc] a| Jump back in history `--resume`
 | kbd:[Ctrl + R] | Verbose output
-| kbd:[/Vibe] |
+| `/Vibe` |
 |===
 
 |===
