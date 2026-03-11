@@ -1,5 +1,6 @@
 [.doc]
 = Documentation
+:lastname: Baker
 :toc:
 :toclevels: 4
 :caption: 
@@ -8,6 +9,7 @@
 :hide-uri-scheme:
 :data-uri:
 :source-highlighter: rouge
+:reproducible:
 // Needed for source copy button and adjustable ToC
 :docinfo: shared
 
