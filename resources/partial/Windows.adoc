@@ -1,4 +1,5 @@
 = Windows
+:caption: 
 
 == Non default settings
 
@@ -103,4 +104,24 @@ New-Item -ItemType SymbolicLink -Path E:\Data\Documents -Target "C:\users\sbaker
 | Move back to the previous snippet (DemoType) | Ctrl + Shift + 7
 | Advance to the next snippet (DemoType User-driven Mode) | Space Bar
 | Exit | Esc or Right-Click
+|===
+
+== Tools
+
+=== Windows Terminal
+:experimental:
+:fn1: footnote:CustomBinding[Custom key binding]
+
+.Shortcuts
+|===
+| kbd:[Ctrl + Shift + P] | Open command palette
+| kbd:[Ctrl + Shift + T] | New tab
+| kbd:[Alt + Shift + D] | Auto split
+| kbd:[Alt + -] | Horizontal split
+| kbd:[Alt + =] | Vertical split
+| kbd:[Alt + Backspace] {fn1} | Toggle split orientation 
+| kbd:[Alt + Arrow] | Change split focus 
+| kbd:[Alt + Shift + Arrow] | Resize split pane
+| kbd:[Ctrl + Shift + W] | Close split pane
+| kbd:[Alt + R] {fn1} | Rename tab
 |===
