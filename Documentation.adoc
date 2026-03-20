@@ -12,6 +12,8 @@
 :reproducible:
 // Needed for source copy button and adjustable ToC
 :docinfo: shared
+:dynamic-toc:
+:conum-fix:
 
 :blueBadge: pass:[<span style="display: inline-block; padding: 0.25em 0.4em; font-size: 75%; font-weight: bold; line-height: 1; text-align: center; white-space: nowrap; vertical-align: baseline; border-radius: 0.25rem; color: #ffffff; background-color: #007bff;">]
 :redBadge: pass:[<span style="display: inline-block; padding: 0.25em 0.4em; font-size: 75%; font-weight: bold; line-height: 1; text-align: center; white-space: nowrap; vertical-align: baseline; border-radius: 0.25rem; color: #ffffff; background-color: #ff0000;">]
