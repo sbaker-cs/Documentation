@@ -12,6 +12,7 @@
 :reproducible:
 // Needed for source copy button and adjustable ToC
 :docinfo: shared
+:docinfodir: resources
 :dynamic-toc:
 :conum-fix:
 
