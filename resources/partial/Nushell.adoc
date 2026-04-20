@@ -1,0 +1,11 @@
+= Nushell
+:toc:
+:source-language: nushell
+
+== System
+
+.Recursive file listing
+[source]
+----
+ls -a **/*
+----
