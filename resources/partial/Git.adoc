@@ -3,12 +3,13 @@
 
 == Worktrees
 
+.Add worktree
 [souce, bash]
 ----
 git worktree add ../branch_name -b branch_name
 ----
 
-== Remove hooks
+== Hooks
 
 .List global settings
 [source, bash]
@@ -21,7 +22,7 @@ git config --global -l
 git config --global --unset core.hookspath
 ----
 
-== Ignore files localy
+== Local Files
 
 ResxSorter is used as an exemple
 
@@ -37,21 +38,27 @@ git update-index --assume-unchanged {gitPath}\RDM\DevTools\ResxSorter\bin\Debug\
 git config --global core.excludesfile E:\git\.gitignore
 ----
 
-== Delete old branches
+== Branch
+
+.List old branches
+[source, powershell]
+----
+git branch -vv | grep ': gone]'
+----
 
 .Safe delete
 [source, powershell]
 ----
-git branch -vv | grep ': gone]' | foreach { git branch $_ -d }
+git branch -vv | grep ': gone]' | awk '{gsub(/^[+* ]+/, ""); print $1}' | foreach { git branch $_ -d }
 ----
 
 .Hard delete
 [source, powershell]
 ----
-git branch -vv | grep ': gone]' | foreach { git branch $_ -D }
+git branch -vv | grep ': gone]' | awk '{gsub(/^[+* ]+/, ""); print $1}' | foreach { git branch $_ -D }
 ----
 
-== Retrieve lost stash
+== Stash
 
 .Get dangling hash
 [source, bash]
