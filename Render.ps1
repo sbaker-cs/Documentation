@@ -13,7 +13,7 @@ if ($h) {
     return
 }
 
-Import-Module ThreadJob
+Import-Module Microsoft.PowerShell.ThreadJob
 
 function IsDirty {
     param (
