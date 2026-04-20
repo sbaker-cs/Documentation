@@ -117,8 +117,8 @@ New-Item -ItemType SymbolicLink -Path E:\Data\Documents -Target "C:\users\sbaker
 | kbd:[Ctrl + Shift + P] | Open command palette
 | kbd:[Ctrl + Shift + T] | New tab
 | kbd:[Alt + Shift + D] | Auto split
-| kbd:[Alt + -] | Horizontal split
-| kbd:[Alt + =] | Vertical split
+| kbd:[Alt + shift + -] | Horizontal split
+| kbd:[Alt + shift + =] | Vertical split
 | kbd:[Alt + Backspace] {fn1} | Toggle split orientation 
 | kbd:[Alt + Arrow] | Change split focus 
 | kbd:[Alt + Shift + Arrow] | Resize split pane
