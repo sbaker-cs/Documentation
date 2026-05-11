@@ -6,27 +6,27 @@
 <!-- We do not need the tocify CSS because the asciidoc CSS already provides most of what we neeed -->
 
 <style>
-.tocify-header {
-    font-style: italic;
-}
+    .tocify-header {
+        font-style: italic;
+    }
 
-.tocify-subheader {
-    font-style: normal;
-    font-size: 90%;
-}
+    .tocify-subheader {
+        font-style: normal;
+        font-size: 90%;
+    }
 
-.tocify ul {
-    margin: 0;
- }
+    .tocify ul {
+        margin: 0;
+    }
 
-.tocify-focus {
-    color: #7a2518;
-    background-color: rgba(0, 0, 0, 0.1);
-}
+    .tocify-focus {
+        color: #7a2518;
+        background-color: rgba(0, 0, 0, 0.1);
+    }
 
-.tocify-focus > a {
-    color: #7a2518;
-}
+    .tocify-focus>a {
+        color: #7a2518;
+    }
 </style>
 
 <script type="text/javascript">
@@ -42,7 +42,7 @@
                 hideEffect: "slideUp",
                 // Use the IDs that asciidoc already provides so that TOC links and intra-document
                 // links are the same. Anything else might confuse users when they create bookmarks.
-                hashGenerator: function(text, element) {
+                hashGenerator: function (text, element) {
                     return $(element).attr("id");
                 },
                 // Smooth scrolling doesn't work properly if we use the asciidoc IDs
@@ -50,7 +50,7 @@
                 // Set to 'none' to use the tocify classes
                 theme: "none",
                 // Handle book (may contain h1) and article (only h2 deeper)
-                selectors: $( "#content" ).has( "h1" ).size() > 0 ? "h1,h2,h3,h4,h5" : "h2,h3,h4,h5",
+                selectors: $("#content").has("h1").size() > 0 ? "h1,h2,h3,h4,h5" : "h2,h3,h4,h5",
                 ignoreSelector: ".discrete"
             });
 
@@ -58,7 +58,7 @@
             // This is set to match the media selectors in the asciidoc CSS
             // Without this, we keep the dynamic toc even if it is moved from the side to preamble
             // position which will cause odd scrolling behavior
-            var handleTocOnResize = function() {
+            var handleTocOnResize = function () {
                 if ($(document).width() < 768) {
                     $("#generated-toc").hide();
                     $(".sectlevel0").show();
@@ -78,7 +78,7 @@
         if ('{conum-fix}' === '') {
             // Replace b.conum (fallback format) with a proper i.conum[data-value] element
             // so the existing circular badge CSS applies correctly.
-            document.querySelectorAll("b.conum").forEach(function(el) {
+            document.querySelectorAll("b.conum").forEach(function (el) {
                 var match = el.textContent.match(/\((\d+)\)/);
                 if (match) {
                     var conum = document.createElement("i");
