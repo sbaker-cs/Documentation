@@ -5,6 +5,15 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js"></script>
 <!-- We do not need the tocify CSS because the asciidoc CSS already provides most of what we neeed -->
 
+<script>
+    (function () {
+        var savedTheme = localStorage.getItem('theme');
+        var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var theme = savedTheme === 'dark' || savedTheme === 'light' ? savedTheme : (prefersDark ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+    })();
+</script>
+
 <style>
     .tocify-header {
         font-style: italic;
@@ -27,10 +36,75 @@
     .tocify-focus>a {
         color: #7a2518;
     }
+
+    #theme-toggle {
+        position: fixed;
+        bottom: 1.5rem;
+        right: 1.5rem;
+        z-index: 9999;
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: 50%;
+        border: 1px solid #555;
+        background: #2a2a2d;
+        color: #ddd;
+        font-size: 1.1rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 6px rgba(0,0,0,.4);
+        transition: background 0.2s, color 0.2s;
+    }
+
+    html[data-theme="light"] #theme-toggle {
+        background: #f0f0f0;
+        color: #333;
+        border-color: #bbb;
+        box-shadow: 0 2px 6px rgba(0,0,0,.15);
+    }
 </style>
 
 <script type="text/javascript">
     $(function () {
+        var colorSchemeQuery = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+
+        // Inject toggle button
+        $('body').append('<button id="theme-toggle" title="Toggle light/dark theme"></button>');
+
+        function applyTheme(theme, persist) {
+            document.documentElement.setAttribute('data-theme', theme);
+            $('#theme-toggle').text(theme === 'dark' ? '☀️' : '🌙');
+            if (persist) {
+                localStorage.setItem('theme', theme);
+            }
+        }
+
+        applyTheme(document.documentElement.getAttribute('data-theme'), false);
+
+        $('#theme-toggle').on('click', function () {
+            var currentTheme = document.documentElement.getAttribute('data-theme');
+            applyTheme(currentTheme === 'dark' ? 'light' : 'dark', true);
+        });
+
+        if (colorSchemeQuery) {
+            var handleSystemThemeChange = function (event) {
+                var savedTheme = localStorage.getItem('theme');
+                if (savedTheme === 'dark' || savedTheme === 'light') {
+                    return;
+                }
+
+                applyTheme(event.matches ? 'dark' : 'light', false);
+            };
+
+            if (typeof colorSchemeQuery.addEventListener === 'function') {
+                colorSchemeQuery.addEventListener('change', handleSystemThemeChange);
+            }
+            else if (typeof colorSchemeQuery.addListener === 'function') {
+                colorSchemeQuery.addListener(handleSystemThemeChange);
+            }
+        }
+
         if ('{dynamic-toc}' === '') {
             // Add a new container for the tocify toc into the existing toc so we can re-use its
             // styling

@@ -15,6 +15,7 @@
 :docinfodir: resources
 :dynamic-toc:
 :conum-fix:
+:stylesheet: ./resources/theme.css
 
 :blueBadge: pass:[<span style="display: inline-block; padding: 0.25em 0.4em; font-size: 75%; font-weight: bold; line-height: 1; text-align: center; white-space: nowrap; vertical-align: baseline; border-radius: 0.25rem; color: #ffffff; background-color: #007bff;">]
 :redBadge: pass:[<span style="display: inline-block; padding: 0.25em 0.4em; font-size: 75%; font-weight: bold; line-height: 1; text-align: center; white-space: nowrap; vertical-align: baseline; border-radius: 0.25rem; color: #ffffff; background-color: #ff0000;">]
@@ -103,3 +104,5 @@ https://docs.asciidoctor.org/asciidoc/latest/syntax-quick-reference/[Asciidoc Of
 https://quickchart.io/gallery/[Chart Generator]
 
 https://github.com/asciidoctor/asciidoctor-extensions-lab/issues/61[Add Copy button to code blocks]
+
+// adoc-params:-a toc=left -r asciidoctor-kroki -r asciidoctor-tabs
