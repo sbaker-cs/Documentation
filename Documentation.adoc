@@ -105,4 +105,4 @@ https://quickchart.io/gallery/[Chart Generator]
 
 https://github.com/asciidoctor/asciidoctor-extensions-lab/issues/61[Add Copy button to code blocks]
 
-// adoc-params:-a toc=left -r asciidoctor-kroki -r asciidoctor-tabs
+//open-adoc:-r asciidoctor-kroki -r asciidoctor-tabs -a toc=left
